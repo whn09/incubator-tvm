@@ -115,6 +115,11 @@ TVM_REGISTER_GLOBAL("topi.identity").set_body([](TVMArgs args, TVMRetValue* rv) 
   *rv = identity(args[0]);
 });
 
+// TODO new function
+TVM_REGISTER_GLOBAL("topi.diagonal").set_body([](TVMArgs args, TVMRetValue* rv) {
+  *rv = diagonal(args[0], args[1], args[2], args[3]);
+});
+
 TVM_REGISTER_GLOBAL("topi.negative").set_body([](TVMArgs args, TVMRetValue* rv) {
   *rv = negative(args[0]);
 });

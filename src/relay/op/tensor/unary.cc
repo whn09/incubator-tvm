@@ -264,6 +264,33 @@ RELAY_REGISTER_UNARY_OP("copy")
     .set_support_level(3)
     .set_attr<FTVMCompute>("FTVMCompute", RELAY_UNARY_COMPUTE(topi::identity));
 
+// TODO relay.diagonal
+TVM_REGISTER_NODE_TYPE(DiagonalAttrs);
+
+Expr MakeDiagonal(Expr a, int offset, int dim1, int dim2) {
+  auto attrs = make_object<DiagonalAttrs>();
+  attrs->offset = offset;
+  attrs->dim1 = dim1;
+  attrs->dim2 = dim2;
+  static const Op& op = Op::Get("diagonal");
+  return Call(op, {a}, Attrs(attrs), {});
+}
+
+TVM_REGISTER_GLOBAL("relay.op._make.diagonal").set_body_typed(MakeDiagonal);
+
+RELAY_REGISTER_OP("diagonal")
+    .describe(R"code(Diagonal tensor values.
+This function takes a tensor, a minimum value `a_min`, and a maximum value `a_max`, and returns a clipped tensor where all values below `a_min` are set to `a_min` and all values above `a_max` are set to `a_max`. `a_min` and `a_max` are cast to the tensor's dtype.
+)code" TVM_ADD_FILELINE)
+    .set_num_inputs(1)
+    .add_argument("data", "Tensor", "The input tensor.")
+    .add_type_rel("Identity", IdentityRel)
+    .set_attr<TOpPattern>("TOpPattern", kElemWise)
+    .set_attr<TOpIsStateful>("TOpIsStateful", false)
+    .set_attr<FInferCorrectLayout>("FInferCorrectLayout", ElemwiseArbitraryLayout)
+    .set_attrs_type<DiagonalAttrs>()
+    .set_support_level(3);
+
 // relay.clip
 TVM_REGISTER_NODE_TYPE(ClipAttrs);
 

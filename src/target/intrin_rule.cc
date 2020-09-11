@@ -99,6 +99,17 @@ TVM_REGISTER_GLOBAL("tvm.intrin.rule.default.sigmoid")
       *rv = one / (one + exp(-call->args[0]));
     });
 
+// // TODO new function
+// TVM_REGISTER_GLOBAL("tvm.intrin.rule.default.diagonal")
+//     .set_body([](const TVMArgs& args, TVMRetValue* rv) {
+//       PrimExpr e = args[0];
+//       const CallNode* call = e.as<CallNode>();
+//       CHECK(call != nullptr);
+//
+//       auto one = make_const(call->args[0].dtype(), 1);
+//       *rv = one / (one + exp(-call->args[0]));
+//     });
+
 TVM_REGISTER_GLOBAL("tvm.intrin.rule.default.isfinite")
     .set_body([](const TVMArgs& args, TVMRetValue* rv) {
       PrimExpr e = args[0];

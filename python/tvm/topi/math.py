@@ -548,6 +548,24 @@ def sigmoid(x):
     return te.compute(x.shape, lambda *i: te.sigmoid(x(*i)))
 
 
+# TODO new function
+@tvm.te.tag_scope(tag=tag.ELEMWISE)
+def diagonal(x):
+    """Take sigmoid tanh of input x.
+
+    Parameters
+    ----------
+    x : tvm.te.Tensor
+        Input argument.
+
+    Returns
+    -------
+    y : tvm.te.Tensor
+        The result.
+    """
+    return te.compute(x.shape, lambda *i: te.diagonal(x(*i)))
+
+
 @tvm.te.tag_scope(tag=tag.ELEMWISE)
 def left_shift(x, n):
     """Take n bits left shift of input x.

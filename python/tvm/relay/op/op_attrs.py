@@ -257,6 +257,12 @@ class SliceLikeAttrs(Attrs):
     """Attributes for transform.slice_like"""
 
 
+# TODO new function
+@tvm._ffi.register_object("relay.attrs.DiagonalAttrs")
+class DiagonalAttrs(Attrs):
+    """Attributes for transform.diagonal"""
+
+
 @tvm._ffi.register_object("relay.attrs.ClipAttrs")
 class ClipAttrs(Attrs):
     """Attributes for transform.clip"""

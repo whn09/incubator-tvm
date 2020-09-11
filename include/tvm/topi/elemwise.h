@@ -525,6 +525,31 @@ inline Tensor fast_erf(const Tensor& x, std::string name = "T_fast_erf",
   }
 }
 
+// TODO new function
+/*!
+ * \brief Creates an operation that clips each element of a tensor to
+ * the interval [a_min, a_max]
+ *
+ * \param x The input tensor
+ * \param a_min The inclusive lower bound of the interval
+ * \param a_max The inclusive upper bound of the interval
+ * \param name The name of the operation
+ * \param tag The tag to mark the operation
+ *
+ * \return A Tensor whose op member is the clip operation
+ */
+inline Tensor diagonal(const Tensor& x, const PrimExpr& offset, const PrimExpr& dim1, const PrimExpr& dim2,
+                   std::string name = "T_diagonal", std::string tag = kElementWise) {
+  return compute(
+      x->shape,
+      [&](const Array<Var>& i) {
+        auto min_val = tvm::cast(x->dtype, dim1);
+        auto max_val = tvm::cast(x->dtype, dim2);
+        return tvm::max(tvm::min(x(i), max_val), min_val);  // NOLINT(*)
+      },
+      name, tag);
+}
+
 }  // namespace topi
 }  // namespace tvm
 #endif  // TVM_TOPI_ELEMWISE_H_

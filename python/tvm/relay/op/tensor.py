@@ -1118,6 +1118,24 @@ def copy(data):
     """
     return _make.copy(data)
 
+# TODO new function
+def diagonal(data, offset, dim1, dim2):
+    """Calculate the diagonal of a tensor.
+
+    Parameters
+    ----------
+    data : relay.Expr
+        The tensor to be copied.
+    offset : int
+    dim1 : int
+    dim2 : int
+
+    Returns
+    -------
+    result: relay.Expr
+        The result.
+    """
+    return _make.diagonal(data, offset, dim1, dim2)
 
 def device_copy(data, src_dev, dst_dev):
     """Copy data from the source device to the destination device. This

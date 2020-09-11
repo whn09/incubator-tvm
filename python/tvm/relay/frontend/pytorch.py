@@ -1147,6 +1147,16 @@ def _clone():
         return _op.tensor.copy(data)
     return _impl
 
+# TODO new function
+def _diagonal():
+    def _impl(inputs, input_types):
+        data = inputs[0]
+        offset = int(inputs[1])
+        dim1 = int(inputs[2])
+        dim2 = int(inputs[3])
+        return _op.tensor.diagonal(data, offset, dim1, dim2)
+    return _impl
+
 def _log_softmax():
     def _impl(inputs, input_types):
         data = inputs[0]
@@ -2118,6 +2128,8 @@ def _get_convert_map(prelude, default_dtype):
         "aten::view"                            : _view(),
         "aten::reshape"                         : _reshape(),
         "aten::clone"                           : _clone(),
+        "aten::copy_"                           : _clone(),
+        "aten::diagonal"						: _diagonal(),
         "aten::log_softmax"                     : _log_softmax(),
         "aten::sigmoid"                         : _sigmoid(),
         "aten::softplus"                        : _softplus(),

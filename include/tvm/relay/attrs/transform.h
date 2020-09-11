@@ -295,6 +295,19 @@ struct SliceLikeAttrs : public tvm::AttrsNode<SliceLikeAttrs> {
   }
 };
 
+/*! TODO \brief Attributes for Diagonal operator */
+struct DiagonalAttrs : public tvm::AttrsNode<DiagonalAttrs> {
+  int offset;
+  int dim1;
+  int dim2;
+
+  TVM_DECLARE_ATTRS(DiagonalAttrs, "relay.attrs.DiagonalAttrs") {
+    TVM_ATTR_FIELD(offset).describe("The offset value.");
+    TVM_ATTR_FIELD(dim1).describe("The dim1 value.");
+    TVM_ATTR_FIELD(dim2).describe("The dim2 value.");
+  }
+};
+
 /*! \brief Attributes for Clip operator */
 struct ClipAttrs : public tvm::AttrsNode<ClipAttrs> {
   double a_min;
